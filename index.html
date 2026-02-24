@@ -1,99 +1,129 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>GoFish.Rocks - Charter Booking Software That Doesn't Rob You</title>
+    <title>GoFish.Rocks | Booking Software for Fishing Charters</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; background: #0f172a; color: white; overflow-x: hidden; }
+        body { font-family: 'Inter', sans-serif; background: #fff; color: #1f2937; line-height: 1.6; }
         
         /* Header */
-        .header { position: sticky; top: 0; background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(20px); padding: 20px 0; z-index: 100; border-bottom: 1px solid rgba(255,255,255,0.1); }
-        .nav { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: 1.5em; font-weight: 700; color: #0ea5e9; }
-        .nav-links { display: flex; gap: 30px; list-style: none; }
-        .nav-links a { color: #cbd5e1; text-decoration: none; font-weight: 500; transition: color 0.3s; }
-        .nav-links a:hover { color: #0ea5e9; }
+        .header { background: #fff; border-bottom: 1px solid #e5e7eb; padding: 16px 0; position: sticky; top: 0; z-index: 100; }
+        .nav { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 24px; }
+        .logo { font-size: 24px; font-weight: 700; color: #059669; display: flex; align-items: center; gap: 8px; }
+        .logo::before { content: '🎣'; }
+        .nav-menu { display: flex; list-style: none; gap: 32px; align-items: center; }
+        .nav-menu a { color: #6b7280; text-decoration: none; font-weight: 500; transition: color 0.3s; }
+        .nav-menu a:hover { color: #059669; }
+        .nav-cta { background: #059669; color: white !important; padding: 10px 20px; border-radius: 8px; font-weight: 600; }
+        .nav-cta:hover { background: #047857; }
         
         /* Hero */
-        .hero { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); padding: 100px 0; position: relative; overflow: hidden; }
-        .hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" fill="%230ea5e9" opacity="0.1"><polygon points="0,20 50,40 100,10 150,30 200,0 250,20 300,40 350,10 400,30 450,0 500,20 550,40 600,10 650,30 700,0 750,20 800,40 850,10 900,30 950,0 1000,20 1000,100 0,100"/></svg>') repeat-x; animation: wave 20s linear infinite; }
-        @keyframes wave { 0% { background-position-x: 0; } 100% { background-position-x: 1000px; } }
-        .hero-content { max-width: 1200px; margin: 0 auto; padding: 0 20px; text-align: center; position: relative; z-index: 1; }
-        .hero h1 { font-size: 4em; margin-bottom: 20px; background: linear-gradient(135deg, #0ea5e9, #38bdf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1.1; }
-        .hero-subtitle { font-size: 1.4em; color: #94a3b8; margin-bottom: 50px; max-width: 800px; margin-left: auto; margin-right: auto; }
+        .hero { background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%); padding: 80px 0; }
+        .hero-container { max-width: 1200px; margin: 0 auto; padding: 0 24px; text-align: center; }
+        .hero-badge { background: #dcfce7; color: #166534; padding: 6px 16px; border-radius: 20px; font-size: 14px; font-weight: 600; display: inline-block; margin-bottom: 24px; }
+        .hero h1 { font-size: 56px; font-weight: 800; color: #111827; margin-bottom: 24px; line-height: 1.1; }
+        .hero h1 .highlight { color: #dc2626; }
+        .hero p { font-size: 20px; color: #6b7280; max-width: 600px; margin: 0 auto 40px; }
+        .hero-buttons { display: flex; gap: 16px; justify-content: center; margin-bottom: 48px; }
+        .btn { padding: 14px 28px; border-radius: 8px; font-weight: 600; text-decoration: none; transition: all 0.3s; display: inline-block; }
+        .btn-primary { background: #059669; color: white; box-shadow: 0 4px 14px rgba(5, 150, 105, 0.3); }
+        .btn-primary:hover { background: #047857; transform: translateY(-2px); }
+        .btn-secondary { background: #fff; color: #059669; border: 2px solid #059669; }
+        .btn-secondary:hover { background: #059669; color: white; }
         
-        /* Pricing Showcase */
-        .pricing-hero { background: rgba(255,255,255,0.05); padding: 50px; border-radius: 30px; margin: 50px auto; max-width: 800px; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); }
-        .price-comparison { display: grid; grid-template-columns: 1fr auto 1fr; gap: 30px; align-items: center; }
-        .gofish-price { text-align: center; }
-        .gofish-price .price { font-size: 5em; color: #10b981; font-weight: 900; line-height: 1; }
-        .gofish-price .label { color: #34d399; margin-top: 10px; font-weight: 600; }
-        .vs-divider { font-size: 2em; color: #f59e0b; font-weight: 700; }
-        .competitor-price { text-align: center; }
-        .competitor-price .price { font-size: 4em; color: #ef4444; font-weight: 900; line-height: 1; text-decoration: line-through; }
-        .competitor-price .label { color: #f87171; margin-top: 10px; }
+        /* Pricing Hero */
+        .pricing-showcase { background: white; border-radius: 16px; padding: 40px; margin: 0 auto; max-width: 800px; box-shadow: 0 10px 40px rgba(0,0,0,0.08); border: 1px solid #e5e7eb; }
+        .pricing-comparison { display: grid; grid-template-columns: 1fr auto 1fr; gap: 40px; align-items: center; }
+        .price-card { text-align: center; }
+        .price-main { font-size: 48px; font-weight: 900; line-height: 1; margin-bottom: 8px; }
+        .price-main.good { color: #059669; }
+        .price-main.bad { color: #dc2626; text-decoration: line-through; }
+        .price-label { color: #6b7280; font-weight: 500; }
+        .vs { background: #fef3c7; color: #d97706; padding: 8px 16px; border-radius: 20px; font-weight: 700; font-size: 18px; }
+        
+        /* Problem Section */
+        .problem { padding: 80px 0; background: #f9fafb; }
+        .problem-container { max-width: 1200px; margin: 0 auto; padding: 0 24px; text-align: center; }
+        .problem h2 { font-size: 36px; font-weight: 700; color: #111827; margin-bottom: 16px; }
+        .problem p { font-size: 18px; color: #6b7280; max-width: 700px; margin: 0 auto 48px; }
+        .problem-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 48px; }
+        .problem-card { background: white; padding: 32px; border-radius: 12px; text-align: left; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+        .problem-icon { font-size: 32px; margin-bottom: 16px; }
+        .problem-card h3 { font-size: 20px; font-weight: 600; color: #111827; margin-bottom: 12px; }
+        .problem-card p { color: #6b7280; font-size: 16px; margin: 0; }
+        
+        /* Solution */
+        .solution { padding: 80px 0; }
+        .solution-container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+        .solution-header { text-align: center; margin-bottom: 64px; }
+        .solution-header h2 { font-size: 36px; font-weight: 700; color: #111827; margin-bottom: 16px; }
+        .solution-header p { font-size: 18px; color: #6b7280; max-width: 600px; margin: 0 auto; }
+        .solution-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 48px; }
+        .solution-item { display: flex; gap: 16px; }
+        .solution-icon { width: 48px; height: 48px; background: #dcfce7; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px; flex-shrink: 0; }
+        .solution-content h3 { font-size: 20px; font-weight: 600; color: #111827; margin-bottom: 8px; }
+        .solution-content p { color: #6b7280; }
         
         /* Calculator */
-        .calculator { background: #1e293b; padding: 80px 0; }
-        .calc-container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
-        .calc-title { text-align: center; font-size: 2.5em; margin-bottom: 50px; color: #f1f5f9; }
-        .calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
-        .calc-inputs { background: rgba(255,255,255,0.05); padding: 40px; border-radius: 20px; }
-        .input-group { margin-bottom: 25px; }
-        .input-group label { display: block; color: #cbd5e1; margin-bottom: 8px; font-weight: 500; }
-        .input-group input, .input-group select { width: 100%; padding: 15px; border: 1px solid rgba(255,255,255,0.2); border-radius: 10px; background: rgba(255,255,255,0.1); color: white; font-size: 1.1em; }
-        .calc-results { text-align: center; }
-        .result-box { background: rgba(255,255,255,0.05); padding: 30px; border-radius: 20px; margin-bottom: 20px; border: 2px solid transparent; }
-        .result-box.savings { border-color: #10b981; background: rgba(16,185,129,0.1); }
-        .result-label { color: #94a3b8; font-size: 1.1em; margin-bottom: 10px; }
-        .result-amount { font-size: 2.5em; font-weight: 900; line-height: 1; }
-        .result-amount.current { color: #ef4444; }
-        .result-amount.gofish { color: #38bdf8; }
-        .result-amount.saved { color: #10b981; }
-        
-        /* Features */
-        .features { background: #0f172a; padding: 100px 0; }
-        .features-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-        .features-title { text-align: center; font-size: 2.5em; margin-bottom: 60px; }
-        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; }
-        .feature-card { background: rgba(255,255,255,0.05); padding: 40px; border-radius: 20px; text-align: center; transition: transform 0.3s; border: 1px solid rgba(255,255,255,0.1); }
-        .feature-card:hover { transform: translateY(-10px); }
-        .feature-icon { font-size: 3em; margin-bottom: 20px; }
-        .feature-card h3 { font-size: 1.4em; margin-bottom: 15px; color: #f1f5f9; }
-        .feature-card p { color: #94a3b8; line-height: 1.6; }
+        .calculator { background: #f9fafb; padding: 80px 0; }
+        .calc-container { max-width: 1000px; margin: 0 auto; padding: 0 24px; }
+        .calc-header { text-align: center; margin-bottom: 48px; }
+        .calc-header h2 { font-size: 36px; font-weight: 700; color: #111827; margin-bottom: 16px; }
+        .calc-header p { font-size: 18px; color: #6b7280; }
+        .calc-content { background: white; border-radius: 16px; padding: 48px; box-shadow: 0 10px 40px rgba(0,0,0,0.08); }
+        .calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+        .calc-inputs h3 { font-size: 20px; font-weight: 600; color: #111827; margin-bottom: 24px; }
+        .input-group { margin-bottom: 20px; }
+        .input-group label { display: block; color: #374151; font-weight: 500; margin-bottom: 6px; }
+        .input-group input, .input-group select { width: 100%; padding: 12px 16px; border: 1px solid #d1d5db; border-radius: 8px; font-size: 16px; }
+        .input-group input:focus, .input-group select:focus { outline: none; border-color: #059669; }
+        .calc-results h3 { font-size: 20px; font-weight: 600; color: #111827; margin-bottom: 24px; }
+        .result-card { background: #f9fafb; padding: 24px; border-radius: 12px; margin-bottom: 16px; text-align: center; }
+        .result-card.highlight { background: #dcfce7; border: 2px solid #059669; }
+        .result-label { font-size: 14px; color: #6b7280; margin-bottom: 8px; }
+        .result-amount { font-size: 32px; font-weight: 900; line-height: 1; }
+        .result-amount.current { color: #dc2626; }
+        .result-amount.gofish { color: #0891b2; }
+        .result-amount.savings { color: #059669; }
         
         /* Social Proof */
-        .social-proof { background: linear-gradient(135deg, #1e293b, #334155); padding: 100px 0; }
-        .proof-container { max-width: 1000px; margin: 0 auto; padding: 0 20px; text-align: center; }
-        .proof-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 50px; margin: 50px 0; }
-        .stat { }
-        .stat-number { font-size: 3em; font-weight: 900; color: #10b981; line-height: 1; }
-        .stat-label { color: #cbd5e1; margin-top: 10px; font-weight: 500; }
-        .testimonial { background: rgba(255,255,255,0.05); padding: 40px; border-radius: 20px; margin: 50px 0; border-left: 4px solid #f59e0b; }
-        .testimonial-text { font-size: 1.2em; font-style: italic; color: #e2e8f0; margin-bottom: 20px; }
-        .testimonial-author { color: #f59e0b; font-weight: 600; }
+        .social-proof { padding: 80px 0; }
+        .proof-container { max-width: 1200px; margin: 0 auto; padding: 0 24px; text-align: center; }
+        .proof-header h2 { font-size: 36px; font-weight: 700; color: #111827; margin-bottom: 48px; }
+        .proof-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 48px; margin-bottom: 64px; }
+        .stat-card { }
+        .stat-number { font-size: 48px; font-weight: 900; color: #059669; line-height: 1; }
+        .stat-label { color: #6b7280; font-weight: 500; margin-top: 8px; }
+        .testimonials { display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px; margin-top: 48px; }
+        .testimonial { background: #f9fafb; padding: 32px; border-radius: 12px; text-align: left; }
+        .testimonial-text { font-size: 16px; color: #374151; margin-bottom: 20px; font-style: italic; }
+        .testimonial-author { display: flex; align-items: center; gap: 16px; }
+        .author-avatar { width: 48px; height: 48px; background: #d1d5db; border-radius: 50%; }
+        .author-info h4 { font-weight: 600; color: #111827; margin-bottom: 4px; }
+        .author-info p { color: #6b7280; font-size: 14px; margin: 0; }
+        .rating { color: #f59e0b; margin-bottom: 16px; }
         
         /* CTA */
-        .cta { background: linear-gradient(135deg, #0ea5e9, #3b82f6); padding: 100px 0; text-align: center; }
-        .cta-container { max-width: 800px; margin: 0 auto; padding: 0 20px; }
-        .cta h2 { font-size: 2.8em; margin-bottom: 20px; }
-        .cta p { font-size: 1.2em; margin-bottom: 40px; opacity: 0.9; }
-        .btn { background: white; color: #0ea5e9; padding: 20px 50px; text-decoration: none; border-radius: 50px; font-weight: 700; font-size: 1.2em; display: inline-block; transition: all 0.3s; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
-        .btn:hover { transform: translateY(-3px); box-shadow: 0 15px 40px rgba(0,0,0,0.3); }
+        .cta { background: linear-gradient(135deg, #059669, #047857); color: white; padding: 80px 0; text-align: center; }
+        .cta-container { max-width: 800px; margin: 0 auto; padding: 0 24px; }
+        .cta h2 { font-size: 36px; font-weight: 700; margin-bottom: 16px; }
+        .cta p { font-size: 18px; margin-bottom: 32px; opacity: 0.9; }
+        .cta .btn-primary { background: white; color: #059669; }
+        .cta .btn-primary:hover { background: #f3f4f6; }
+        .cta-note { font-size: 14px; opacity: 0.8; margin-top: 16px; }
         
         /* Footer */
-        .footer { background: #0f172a; padding: 60px 0; border-top: 1px solid rgba(255,255,255,0.1); text-align: center; color: #64748b; }
+        .footer { background: #f9fafb; padding: 48px 0; text-align: center; color: #6b7280; border-top: 1px solid #e5e7eb; }
         
         @media (max-width: 768px) {
-            .hero h1 { font-size: 2.5em; }
-            .calc-grid { grid-template-columns: 1fr; gap: 30px; }
-            .price-comparison { grid-template-columns: 1fr; gap: 20px; }
-            .features-grid { grid-template-columns: 1fr; }
-            .proof-stats { grid-template-columns: 1fr; gap: 30px; }
+            .hero h1 { font-size: 36px; }
+            .pricing-comparison, .calc-grid, .solution-grid, .testimonials { grid-template-columns: 1fr; gap: 24px; }
+            .problem-grid, .proof-stats { grid-template-columns: 1fr; }
+            .nav-menu { display: none; }
         }
     </style>
 </head>
@@ -101,30 +131,120 @@
     <header class="header">
         <nav class="nav">
             <div class="logo">GoFish.Rocks</div>
-            <ul class="nav-links">
-                <li><a href="#features">Features</a></li>
-                <li><a href="#pricing">Pricing</a></li>
-                <li><a href="#calculator">Calculator</a></li>
-                <li><a href="#trial" class="btn" style="padding:10px 20px;font-size:0.9em;">Free Trial</a></li>
+            <ul class="nav-menu">
+                <li><a href="#solution">Features</a></li>
+                <li><a href="#calculator">Pricing</a></li>
+                <li><a href="#proof">Customers</a></li>
+                <li><a href="#cta" class="nav-cta">Start Free Trial</a></li>
             </ul>
         </nav>
     </header>
 
     <section class="hero">
-        <div class="hero-content">
-            <h1>Stop Getting Robbed by Booking Platforms</h1>
-            <p class="hero-subtitle">The only fishing charter booking system with honest flat-rate pricing. While others steal 3-7% of your revenue, we charge just $1.50 per passenger. Same service, fair price.</p>
+        <div class="hero-container">
+            <div class="hero-badge">Trusted by 500+ Charter Captains</div>
+            <h1>Stop paying <span class="highlight">3-7%</span>.<br>Start paying <strong>$1.50</strong>.</h1>
+            <p>The only fishing charter booking software with honest, flat-rate pricing. While other platforms take percentage fees that grow with your success, we charge the same fair rate regardless of your trip price.</p>
             
-            <div class="pricing-hero">
-                <div class="price-comparison">
-                    <div class="gofish-price">
-                        <div class="price">$1.50</div>
-                        <div class="label">Per Passenger<br>Always</div>
+            <div class="hero-buttons">
+                <a href="#cta" class="btn btn-primary">Start Free Trial</a>
+                <a href="#calculator" class="btn btn-secondary">Calculate Your Savings</a>
+            </div>
+            
+            <div class="pricing-showcase">
+                <div class="pricing-comparison">
+                    <div class="price-card">
+                        <div class="price-main good">$1.50</div>
+                        <div class="price-label">Per passenger<br>Always</div>
                     </div>
-                    <div class="vs-divider">VS</div>
-                    <div class="competitor-price">
-                        <div class="price">3-7%</div>
-                        <div class="label">Of Your Revenue<br>Forever</div>
+                    <div class="vs">VS</div>
+                    <div class="price-card">
+                        <div class="price-main bad">3-7%</div>
+                        <div class="price-label">Of your revenue<br>Forever</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="problem">
+        <div class="problem-container">
+            <h2>Other platforms are designed to take more as you earn more</h2>
+            <p>Why should booking fees increase when your business grows? The same booking process costs the same to handle, whether it's a $50 trip or a $500 trip.</p>
+            
+            <div class="problem-grid">
+                <div class="problem-card">
+                    <div class="problem-icon">📈</div>
+                    <h3>Fees that punish success</h3>
+                    <p>The better your business does, the more percentage-based platforms take from your profits.</p>
+                </div>
+                <div class="problem-card">
+                    <div class="problem-icon">💸</div>
+                    <h3>Hidden costs everywhere</h3>
+                    <p>Processing fees, setup fees, monthly fees—the costs add up and eat into your margins.</p>
+                </div>
+                <div class="problem-card">
+                    <div class="problem-icon">🎯</div>
+                    <h3>Built for everyone, not charters</h3>
+                    <p>Generic booking systems don't understand the unique needs of fishing charter businesses.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="solution" id="solution">
+        <div class="solution-container">
+            <div class="solution-header">
+                <h2>Built specifically for charter success</h2>
+                <p>Everything you need to run and grow your fishing charter business, with honest pricing that doesn't penalize your success.</p>
+            </div>
+            
+            <div class="solution-grid">
+                <div class="solution-item">
+                    <div class="solution-icon">🎣</div>
+                    <div class="solution-content">
+                        <h3>Charter-specific features</h3>
+                        <p>Weather integration, marine-focused booking flows, and features designed specifically for fishing charters and boat tours.</p>
+                    </div>
+                </div>
+                
+                <div class="solution-item">
+                    <div class="solution-icon">📱</div>
+                    <div class="solution-content">
+                        <h3>Mobile-first design</h3>
+                        <p>Manage your bookings from the dock, on the boat, or anywhere. Your customers book easily on any device.</p>
+                    </div>
+                </div>
+                
+                <div class="solution-item">
+                    <div class="solution-icon">💳</div>
+                    <div class="solution-content">
+                        <h3>Secure payment processing</h3>
+                        <p>Accept credit cards, handle deposits, and process full payments with enterprise-grade security.</p>
+                    </div>
+                </div>
+                
+                <div class="solution-item">
+                    <div class="solution-icon">📊</div>
+                    <div class="solution-content">
+                        <h3>Business insights</h3>
+                        <p>Track revenue, analyze booking trends, and get customer insights to grow your charter business.</p>
+                    </div>
+                </div>
+                
+                <div class="solution-item">
+                    <div class="solution-icon">⚡</div>
+                    <div class="solution-content">
+                        <h3>Automated communications</h3>
+                        <p>Booking confirmations, weather updates, and customer reminders—all handled automatically.</p>
+                    </div>
+                </div>
+                
+                <div class="solution-item">
+                    <div class="solution-icon">🌊</div>
+                    <div class="solution-content">
+                        <h3>Real-time availability</h3>
+                        <p>Prevent double bookings and keep availability in sync across all your booking channels.</p>
                     </div>
                 </div>
             </div>
@@ -133,123 +253,119 @@
 
     <section class="calculator" id="calculator">
         <div class="calc-container">
-            <h2 class="calc-title">See How Much You'll Save</h2>
-            <div class="calc-grid">
-                <div class="calc-inputs">
-                    <div class="input-group">
-                        <label>Average Trip Price</label>
-                        <input type="number" id="tripPrice" value="300" min="0">
+            <div class="calc-header">
+                <h2>See exactly how much you'll save</h2>
+                <p>Calculate your annual savings compared to percentage-based booking platforms</p>
+            </div>
+            
+            <div class="calc-content">
+                <div class="calc-grid">
+                    <div class="calc-inputs">
+                        <h3>Your Business Details</h3>
+                        <div class="input-group">
+                            <label>Average trip price</label>
+                            <input type="number" id="tripPrice" value="250" min="0">
+                        </div>
+                        <div class="input-group">
+                            <label>Trips per month</label>
+                            <input type="number" id="tripsMonth" value="45" min="0">
+                        </div>
+                        <div class="input-group">
+                            <label>Average passengers per trip</label>
+                            <input type="number" id="passengers" value="4" min="1">
+                        </div>
+                        <div class="input-group">
+                            <label>Current platform fee</label>
+                            <select id="currentFee">
+                                <option value="0.03">3%</option>
+                                <option value="0.05" selected>5%</option>
+                                <option value="0.07">7%</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="input-group">
-                        <label>Trips Per Month</label>
-                        <input type="number" id="tripsMonth" value="40" min="0">
-                    </div>
-                    <div class="input-group">
-                        <label>Average Passengers Per Trip</label>
-                        <input type="number" id="passengers" value="4" min="1">
-                    </div>
-                    <div class="input-group">
-                        <label>Current Platform Fee</label>
-                        <select id="currentFee">
-                            <option value="0.03">3%</option>
-                            <option value="0.05" selected>5%</option>
-                            <option value="0.07">7%</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="calc-results">
-                    <div class="result-box">
-                        <div class="result-label">Your Current Annual Fees</div>
-                        <div class="result-amount current" id="currentFees">$7,200</div>
-                    </div>
-                    <div class="result-box">
-                        <div class="result-label">GoFish Annual Fees</div>
-                        <div class="result-amount gofish" id="gofishFees">$2,880</div>
-                    </div>
-                    <div class="result-box savings">
-                        <div class="result-label">You Save Every Year</div>
-                        <div class="result-amount saved" id="savings">$4,320</div>
+                    
+                    <div class="calc-results">
+                        <h3>Annual Comparison</h3>
+                        <div class="result-card">
+                            <div class="result-label">Current platform fees</div>
+                            <div class="result-amount current" id="currentFees">$6,750</div>
+                        </div>
+                        <div class="result-card">
+                            <div class="result-label">GoFish.Rocks fees</div>
+                            <div class="result-amount gofish" id="gofishFees">$3,240</div>
+                        </div>
+                        <div class="result-card highlight">
+                            <div class="result-label">Your annual savings</div>
+                            <div class="result-amount savings" id="savings">$3,510</div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="features" id="features">
-        <div class="features-container">
-            <h2 class="features-title">Built for Charter Success</h2>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">🎣</div>
-                    <h3>Charter-Specific Design</h3>
-                    <p>Built specifically for fishing charters, not generic events. Every feature designed for marine business needs.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">📱</div>
-                    <h3>Mobile-First Platform</h3>
-                    <p>Manage bookings from the dock, boat, or anywhere. Your customers book easily on any device.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">💳</div>
-                    <h3>Secure Payments</h3>
-                    <p>Accept credit cards, process deposits, and handle full payments with enterprise-grade security.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">📊</div>
-                    <h3>Business Analytics</h3>
-                    <p>Track revenue, booking trends, and customer insights to grow your charter business smarter.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🌊</div>
-                    <h3>Weather Integration</h3>
-                    <p>Automatic weather updates and trip notifications to keep customers informed and safe.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">⚡</div>
-                    <h3>Instant Notifications</h3>
-                    <p>SMS and email confirmations, reminders, and updates for you and your customers.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="social-proof">
+    <section class="social-proof" id="proof">
         <div class="proof-container">
-            <h2 style="font-size: 2.5em; margin-bottom: 30px;">Trusted by Charter Captains Nationwide</h2>
+            <div class="proof-header">
+                <h2>Charter captains are switching to fair pricing</h2>
+            </div>
+            
             <div class="proof-stats">
-                <div class="stat">
+                <div class="stat-card">
                     <div class="stat-number">500+</div>
-                    <div class="stat-label">Charter Businesses</div>
+                    <div class="stat-label">Charter businesses using GoFish</div>
                 </div>
-                <div class="stat">
-                    <div class="stat-number">$2M+</div>
-                    <div class="stat-label">Saved in Fees</div>
+                <div class="stat-card">
+                    <div class="stat-number">$2.1M</div>
+                    <div class="stat-label">Saved in booking fees last year</div>
                 </div>
-                <div class="stat">
-                    <div class="stat-number">99.9%</div>
-                    <div class="stat-label">Uptime Guarantee</div>
+                <div class="stat-card">
+                    <div class="stat-number">48hrs</div>
+                    <div class="stat-label">Average setup time</div>
                 </div>
             </div>
-            <div class="testimonial">
-                <div class="testimonial-text">"Switched from a 5% platform and saved over $12,000 last year. The booking system works flawlessly and customers love how easy it is to book trips."</div>
-                <div class="testimonial-author">⭐⭐⭐⭐⭐ Captain Mike Rodriguez - Gulf Shores Deep Sea Fishing</div>
+            
+            <div class="testimonials">
+                <div class="testimonial">
+                    <div class="rating">⭐⭐⭐⭐⭐</div>
+                    <div class="testimonial-text">"Switched from a 5% platform and saved over $12,000 last year. The booking system works perfectly and customers love how easy it is."</div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar"></div>
+                        <div class="author-info">
+                            <h4>Captain Mike Rodriguez</h4>
+                            <p>Gulf Shores Deep Sea Fishing, Alabama</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial">
+                    <div class="rating">⭐⭐⭐⭐⭐</div>
+                    <div class="testimonial-text">"The flat rate pricing is brilliant. I can offer premium trips without worrying about fees eating into my profits. Bookings increased 40%."</div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar"></div>
+                        <div class="author-info">
+                            <h4>Captain Sarah Thompson</h4>
+                            <p>Keys Adventure Charters, Florida</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <section class="cta" id="trial">
+    <section class="cta" id="cta">
         <div class="cta-container">
-            <h2>Ready to Stop Losing Money?</h2>
-            <p>Join 500+ charter captains who switched to fair, transparent pricing. Start your free trial today.</p>
-            <a href="#" class="btn">Start Free 30-Day Trial</a>
-            <p style="margin-top: 20px; opacity: 0.8;">No credit card required • Cancel anytime • Setup in 5 minutes</p>
+            <h2>Ready to keep more of what you earn?</h2>
+            <p>Join 500+ charter captains who've switched to honest, transparent pricing. Start your free trial today.</p>
+            <a href="#" class="btn btn-primary">Start Your Free 30-Day Trial</a>
+            <div class="cta-note">No credit card required • Cancel anytime • Full setup support included</div>
         </div>
     </section>
 
     <footer class="footer">
         <div>
-            <p><strong>Professional Website Demo</strong> by Robbie Gets You Leads</p>
-            <p>South Florida's fastest website development • 48-hour delivery • $149-$349/month</p>
+            <p><strong>Professional Website Demo</strong> created by Robbie Gets You Leads</p>
+            <p>South Florida website design • 48-hour delivery • $149-$349/month subscriptions</p>
         </div>
     </footer>
 
@@ -257,7 +373,7 @@
         function updateCalculator() {
             const tripPrice = parseFloat(document.getElementById('tripPrice').value) || 0;
             const tripsMonth = parseInt(document.getElementById('tripsMonth').value) || 0;
-            const passengers = parseInt(document.getElementById('passengers').value) || 0;
+            const passengers = parseInt(document.getElementById('passengers').value) || 1;
             const currentFee = parseFloat(document.getElementById('currentFee').value) || 0;
             
             const monthlyRevenue = tripPrice * tripsMonth;
@@ -266,16 +382,16 @@
             
             const currentFees = annualRevenue * currentFee;
             const gofishFees = annualPassengers * 1.50;
-            const savings = currentFees - gofishFees;
+            const savings = Math.max(0, currentFees - gofishFees);
             
             document.getElementById('currentFees').textContent = '$' + Math.round(currentFees).toLocaleString();
             document.getElementById('gofishFees').textContent = '$' + Math.round(gofishFees).toLocaleString();
-            document.getElementById('savings').textContent = '$' + Math.round(Math.max(0, savings)).toLocaleString();
+            document.getElementById('savings').textContent = '$' + Math.round(savings).toLocaleString();
         }
         
-        document.getElementById('tripPrice').addEventListener('input', updateCalculator);
-        document.getElementById('tripsMonth').addEventListener('input', updateCalculator);
-        document.getElementById('passengers').addEventListener('input', updateCalculator);
+        ['tripPrice', 'tripsMonth', 'passengers'].forEach(id => {
+            document.getElementById(id).addEventListener('input', updateCalculator);
+        });
         document.getElementById('currentFee').addEventListener('change', updateCalculator);
         
         updateCalculator();
